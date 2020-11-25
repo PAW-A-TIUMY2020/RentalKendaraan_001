@@ -1,4 +1,4 @@
-﻿@model PaginatedList<RentalKendaraan_001.Models.Customer>
+﻿@model PaginatedList<RentalKendaraan_001.Models.Kendaraan>
 
 @{
     ViewData["Title"] = "Index";
@@ -10,10 +10,10 @@
     <a asp-action="Create">Create New</a>
 </p>
 
-@using (Html.BeginForm("Index", "Customers", FormMethod.Get))
+@using (Html.BeginForm("Index", "Kendaraans", FormMethod.Get))
 {
     <p>
-        Ketersediaan: @Html.DropDownList("ktsd", "Pilih gender")
+        Ketersediaan: @Html.DropDownList("ktsd", "Pilih kendaraan")
         Cari Data : @Html.TextBox("searchString")
         <input type="submit" value="Filter" />
     </p>
@@ -24,22 +24,22 @@
         <tr>
             <th>
                 <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">
-                    Nama
+                    Kendaraan
                 </a>
             </th>
             <th>
-                NIK
+                No Polisi
             </th>
             <th>
-                Alamat
-            </th>
-            <th>
-                No HP
+                No STNK
             </th>
             <th>
                 <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">
-                    Gender
+                    Ketersediaan
                 </a>
+            </th>
+            <th>
+                Jenis Kendaraan
             </th>
             <th></th>
         </tr>
@@ -49,24 +49,24 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.NamaCustomer)
+                    @Html.DisplayFor(modelItem => item.NamaKendaraan)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Nik)
+                    @Html.DisplayFor(modelItem => item.NoPolisi)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Alamat)
+                    @Html.DisplayFor(modelItem => item.NoStnk)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.NoHp)
+                    @Html.DisplayFor(modelItem => item.Ketersediaan)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.IdGenderNavigation.NamaGender)
+                    @Html.DisplayFor(modelItem => item.IdJenisKendaraanNavigation.NamaJenisKendaraan)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.IdCustomer">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.IdCustomer">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.IdCustomer">Delete</a>
+                    <a asp-action="Edit" asp-route-id="@item.IdKendaraan">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.IdKendaraan">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.IdKendaraan">Delete</a>
                 </td>
             </tr>
         }
