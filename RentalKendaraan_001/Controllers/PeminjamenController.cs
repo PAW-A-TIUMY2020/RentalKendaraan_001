@@ -24,7 +24,7 @@ namespace RentalKendaraan_001.Controllers
             //buat list menyimpan ketersediaan
             var ktsdList = new List<string>();
             //Query mengambil data
-            var ktsdQuery = from d in _context.Peminjaman orderby d.IdJaminanNavigation.NamaJaminan.ToString() select d.IdJaminanNavigation.NamaJaminan.ToString();
+            var ktsdQuery = from d in _context.Peminjaman orderby d.IdJaminan.ToString() select d.IdJaminan.ToString();
 
             ktsdList.AddRange(ktsdQuery.Distinct());
 
@@ -32,18 +32,18 @@ namespace RentalKendaraan_001.Controllers
             ViewBag.ktsd = new SelectList(ktsdList);
 
             //panggil db context
-            var menu = from m in _context.Peminjaman.Include(k => k.IdJaminanNavigation) select m;
+            var menu = from m in _context.Peminjaman.Include(k => k.IdJaminan) select m;
 
             //untuk memilih dropdownlist ketersediaan
             if (!string.IsNullOrEmpty(ktsd))
             {
-                menu = menu.Where(x => x.IdJaminanNavigation.NamaJaminan.ToString() == ktsd);
+                menu = menu.Where(x => x.BiayaNavigation.NamaJaminan.ToString() == ktsd);
             }
             //untuk search data
             if (!string.IsNullOrEmpty(searchString))
             {
-                menu = menu.Where(s => s.IdCustomerNavigation.NamaCustomer.Contains(searchString) || s.IdJaminanNavigation.NamaJaminan.Contains(searchString)
-                || s.IdKendaraanNavigation.NamaKendaraan.Contains(searchString) || s.Biaya.ToString().Contains(searchString) || s.TglPeminjaman.ToString().Contains(searchString));
+                menu = menu.Where(s => s.IdCustomerNavigation.NamaCustomer.Contains(searchString) || s.BiayaNavigation.NamaJaminan.Contains(searchString)
+                || s.IdCustomer1.NamaKendaraan.Contains(searchString) || s.Biaya.ToString().Contains(searchString) || s.TglPeminjaman.ToString().Contains(searchString));
             }
 
             //untuk sorting
@@ -96,8 +96,8 @@ namespace RentalKendaraan_001.Controllers
 
             var peminjaman = await _context.Peminjaman
                 .Include(p => p.IdCustomerNavigation)
-                .Include(p => p.IdJaminanNavigation)
-                .Include(p => p.IdKendaraanNavigation)
+                .Include(p => p.IdJaminan)
+                .Include(p => p.IdKendaraan)
                 .FirstOrDefaultAsync(m => m.IdPeminjaman == id);
             if (peminjaman == null)
             {
@@ -202,8 +202,8 @@ namespace RentalKendaraan_001.Controllers
 
             var peminjaman = await _context.Peminjaman
                 .Include(p => p.IdCustomerNavigation)
-                .Include(p => p.IdJaminanNavigation)
-                .Include(p => p.IdKendaraanNavigation)
+                .Include(p => p.IdJaminan)
+                .Include(p => p.IdKendaraan)
                 .FirstOrDefaultAsync(m => m.IdPeminjaman == id);
             if (peminjaman == null)
             {
