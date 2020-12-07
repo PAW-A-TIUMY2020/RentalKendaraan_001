@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.FileProviders;
 using RentalKendaraan_001.Models.Upload;
 
-namespace RentalKendaraan_019.Controllers
+namespace RentalKendaraan_001.Controllers
 {
     public class UploadController : Controller
     {
